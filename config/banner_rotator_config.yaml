@@ -1,0 +1,9 @@
+logger:
+  level: ${CALENDAR_LOGGER_LEVEL} # trace|debug|info|warn|error|fatal|panic
+
+psql:
+  uri: ${POSTGRES_URI} # Example: postgres://{user}:{password}@{hostname}:{port}/{database-name}
+
+grpc:
+  host: ${CALENDAR_GRPC_HOST}
+  port: ${CALENDAR_GRPC_PORT}
