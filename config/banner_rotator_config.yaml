@@ -1,9 +1,16 @@
 logger:
-  level: ${CALENDAR_LOGGER_LEVEL} # trace|debug|info|warn|error|fatal|panic
+  level: ${BANNER_ROTATOR_LOGGER_LEVEL} # trace|debug|info|warn|error|fatal|panic
 
 psql:
   uri: ${POSTGRES_URI} # Example: postgres://{user}:{password}@{hostname}:{port}/{database-name}
 
 grpc:
-  host: ${CALENDAR_GRPC_HOST}
-  port: ${CALENDAR_GRPC_PORT}
+  host: ${BANNER_ROTATOR_GRPC_HOST}
+  port: ${BANNER_ROTATOR_GRPC_PORT}
+
+producer:
+  uri: ${AMQP_URI}
+  queue: ${BANNER_ROTATOR_PRODUCER_QUEUE}
+  exchange_name: ${BANNER_ROTATOR_PRODUCER_EXCHANGE_NAME}
+  exchange_type: ${BANNER_ROTATOR_PRODUCER_EXCHANGE_TYPE}
+  binding_key: ${BANNER_ROTATOR_PRODUCER_BINDING_KEY}

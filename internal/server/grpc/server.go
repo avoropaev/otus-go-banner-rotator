@@ -13,6 +13,8 @@ import (
 
 	"github.com/avoropaev/otus-go-banner-rotator/internal/app"
 	"github.com/avoropaev/otus-go-banner-rotator/internal/server"
+	"github.com/avoropaev/otus-go-banner-rotator/internal/server/grpc/service"
+	"github.com/avoropaev/otus-go-banner-rotator/internal/server/pb"
 )
 
 type serv struct {
@@ -43,6 +45,8 @@ func (s *serv) Start(_ context.Context) error {
 			logging.UnaryServerInterceptor(grpcZerolog.InterceptorLogger(log.Logger)),
 		)),
 	)
+
+	pb.RegisterBannerRotatorServiceServer(grpcServer, service.NewBannerRotatorService(s.app))
 
 	return grpcServer.Serve(lsn)
 }

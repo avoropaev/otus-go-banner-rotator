@@ -15,6 +15,7 @@ import (
 
 	"github.com/avoropaev/otus-go-banner-rotator/cmd/config"
 	"github.com/avoropaev/otus-go-banner-rotator/internal/app"
+	"github.com/avoropaev/otus-go-banner-rotator/internal/rmq"
 	internalGRPC "github.com/avoropaev/otus-go-banner-rotator/internal/server/grpc"
 	psqlStorage "github.com/avoropaev/otus-go-banner-rotator/internal/storage"
 )
@@ -65,18 +66,36 @@ func serveHTTPCommandRunE(ctx context.Context) func(cmd *cobra.Command, args []s
 
 			return err
 		}
-		go func() {
-			conn.Close()
-		}()
 
 		store := psqlStorage.New(conn)
 
-		application := app.New(store)
+		cfgP := cfg.Producer
+		producer := rmq.NewProducer(cfgP.URI, cfgP.Queue, cfgP.ExchangeName, cfgP.ExchangeType, cfgP.BindingKey)
+
+		application := app.New(store, producer)
 		grpcServer := internalGRPC.NewServer(cfg.GRPC.Host, cfg.GRPC.Port, application)
 
 		go func() {
 			<-ctx.Done()
 
+			log.Info().Msg("disconnecting a db...")
+
+			ctx, cancel = context.WithTimeout(context.Background(), time.Second*2)
+			defer cancel()
+
+			conn.Close()
+
+			log.Info().Msg("db is disconnected")
+			log.Info().Msg("disconnecting a producer...")
+
+			ctx, cancel = context.WithTimeout(context.Background(), time.Second*2)
+			defer cancel()
+
+			if err := producer.Disconnect(); err != nil {
+				log.Error().Err(err).Msg("failed to disconnect producer")
+			}
+
+			log.Info().Msg("producer is disconnected")
 			log.Info().Msg("stopping an grpc server...")
 
 			ctx, cancel = context.WithTimeout(context.Background(), time.Second*2)
@@ -85,11 +104,14 @@ func serveHTTPCommandRunE(ctx context.Context) func(cmd *cobra.Command, args []s
 			if err := grpcServer.Stop(ctx); err != nil {
 				log.Error().Err(err).Msg("failed to stop grpc server")
 			}
+
+			log.Info().Msg("grpc server is stopped")
 		}()
 
 		log.Info().Msg("banner-rotator is running...")
 
 		if err := grpcServer.Start(ctx); err != nil {
+			log.Info().Msg("123...")
 			cancel()
 
 			if !errors.Is(err, http.ErrServerClosed) {

@@ -1,0 +1,60 @@
+package apitest
+
+import (
+	"github.com/avoropaev/otus-go-banner-rotator/internal/app"
+	"github.com/avoropaev/otus-go-banner-rotator/internal/server/pb"
+)
+
+func (s *APISuite) TestActionsBannerAndSlotSuccess() {
+	_, err := s.client.AddBannerToSlot(s.ctx, &pb.BannerAndSlotRequest{
+		BannerGuid: LinkNotFound1.bannerGUID,
+		SlotGuid:   LinkNotFound1.slotGUID,
+	})
+	s.Require().NoError(err)
+
+	_, err = s.client.RemoveBannerFromSlot(s.ctx, &pb.BannerAndSlotRequest{
+		BannerGuid: LinkNotFound1.bannerGUID,
+		SlotGuid:   LinkNotFound1.slotGUID,
+	})
+	s.Require().NoError(err)
+}
+
+func (s *APISuite) TestAddBannerToSlotErrors() {
+	_, err := s.client.AddBannerToSlot(s.ctx, &pb.BannerAndSlotRequest{
+		BannerGuid: BannerGuidNotFound,
+		SlotGuid:   SlotGuid1,
+	})
+	s.Require().ErrorContains(err, app.ErrBannerNotFound.Error())
+
+	_, err = s.client.AddBannerToSlot(s.ctx, &pb.BannerAndSlotRequest{
+		BannerGuid: BannerGuid1,
+		SlotGuid:   SlotGuidNotFound,
+	})
+	s.Require().ErrorContains(err, app.ErrSlotNotFound.Error())
+
+	_, err = s.client.AddBannerToSlot(s.ctx, &pb.BannerAndSlotRequest{
+		BannerGuid: Link1.bannerGUID,
+		SlotGuid:   Link1.slotGUID,
+	})
+	s.Require().ErrorContains(err, app.ErrBannerAlreadyLinkedToSlot.Error())
+}
+
+func (s *APISuite) TestRemoveBannerFromSlotErrors() {
+	_, err := s.client.RemoveBannerFromSlot(s.ctx, &pb.BannerAndSlotRequest{
+		BannerGuid: BannerGuidNotFound,
+		SlotGuid:   SlotGuid1,
+	})
+	s.Require().ErrorContains(err, app.ErrBannerNotFound.Error())
+
+	_, err = s.client.RemoveBannerFromSlot(s.ctx, &pb.BannerAndSlotRequest{
+		BannerGuid: BannerGuid1,
+		SlotGuid:   SlotGuidNotFound,
+	})
+	s.Require().ErrorContains(err, app.ErrSlotNotFound.Error())
+
+	_, err = s.client.RemoveBannerFromSlot(s.ctx, &pb.BannerAndSlotRequest{
+		BannerGuid: LinkNotFound1.bannerGUID,
+		SlotGuid:   LinkNotFound1.slotGUID,
+	})
+	s.Require().NoError(err)
+}

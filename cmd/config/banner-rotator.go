@@ -7,9 +7,10 @@ import (
 )
 
 type BannerRotatorConfig struct {
-	Logger LoggerConf `mapstructure:"logger"`
-	DB     PSQLConf   `mapstructure:"psql"`
-	GRPC   GRPCConf   `mapstructure:"grpc"`
+	Logger   LoggerConf   `mapstructure:"logger"`
+	DB       PSQLConf     `mapstructure:"psql"`
+	GRPC     GRPCConf     `mapstructure:"grpc"`
+	Producer ProducerConf `mapstructure:"producer"`
 }
 
 type GRPCConf struct {
