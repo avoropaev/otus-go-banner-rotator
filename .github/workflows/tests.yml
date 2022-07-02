@@ -72,5 +72,8 @@ jobs:
       - name: Create .env
         run: cp .env.dist .env
 
+      - name: Create .env.test
+        run: cp .env.test.dist .env.test
+
       - name: make integration-tests
         run: make integration-tests
