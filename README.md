@@ -1,4 +1,4 @@
-# Финальный проект курса [OTUS. Golang Developer. Professional](https://otus.ru/lessons/golang-professional/)
+## Финальный проект курса [OTUS. Golang Developer. Professional](https://otus.ru/lessons/golang-professional/)
 
 [![Go Report Card](https://goreportcard.com/badge/avoropaev/otus-go-banner-rotator)](https://goreportcard.com/report/avoropaev/otus-go-banner-rotator)
 ![ci](https://github.com/avoropaev/otus-go-banner-rotator/actions/workflows/tests.yaml/badge.svg)
