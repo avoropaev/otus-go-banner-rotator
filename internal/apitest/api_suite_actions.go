@@ -18,7 +18,7 @@ type APISuiteActions struct {
 	client pb.BannerRotatorServiceClient
 	ctx    context.Context
 
-	amqpUri     string
+	amqpURI     string
 	amqpQueue   string
 	amqpConn    *amqp.Connection
 	amqpChannel *amqp.Channel
@@ -40,7 +40,7 @@ func (s *APISuiteActions) Init(apiURL, amqpURI, amqpQueue string) {
 	s.conn = conn
 	s.client = pb.NewBannerRotatorServiceClient(conn)
 
-	s.amqpUri = amqpURI
+	s.amqpURI = amqpURI
 	s.amqpQueue = amqpQueue
 }
 
@@ -64,7 +64,7 @@ func (s *APISuiteActions) GetCountMessageInAMQP() int {
 func (s *APISuiteActions) ConnectToAMQP() {
 	var err error
 
-	s.amqpConn, err = amqp.Dial(s.amqpUri)
+	s.amqpConn, err = amqp.Dial(s.amqpURI)
 	s.Require().NoError(err)
 
 	s.amqpChannel, err = s.amqpConn.Channel()
