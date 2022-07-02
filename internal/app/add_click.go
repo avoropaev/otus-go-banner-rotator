@@ -2,10 +2,9 @@ package app
 
 import (
 	"context"
+	"github.com/google/uuid"
 	"sync"
 	"time"
-
-	"github.com/google/uuid"
 
 	rmqModels "github.com/avoropaev/otus-go-banner-rotator/internal/rmq/models"
 	storageModels "github.com/avoropaev/otus-go-banner-rotator/internal/storage/models"
