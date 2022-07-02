@@ -2,8 +2,6 @@ name: Otus homework banner rotator tests
 
 on:
   push:
-    branches:
-      - *
 
 env:
   GO111MODULE: "on"
