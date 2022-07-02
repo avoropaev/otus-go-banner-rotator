@@ -32,6 +32,8 @@ services:
       context: ../.
       dockerfile: ./build/banner_rotator.Dockerfile
     command: ["waitforit", "-address=rabbitmq:15672", "-timeout=120", "-retry=1000", "--", "/opt/banner-rotator/banner-rotator-app", "serve-http", "--config", "/etc/banner-rotator/config.yaml"]
+    volumes:
+      - ../.:/go/src/
     ports:
       - "${BANNER_ROTATOR_GRPC_PORT}:${BANNER_ROTATOR_GRPC_PORT}"
     env_file:

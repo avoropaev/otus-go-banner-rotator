@@ -38,6 +38,6 @@ RUN wget -q -O $WAIT_FOR_IT_PATH https://github.com/maxcnunes/waitforit/releases
     && chmod +x $WAIT_FOR_IT_PATH
 
 ENV CONFIG_FILE /etc/banner-rotator/config.yaml
-COPY ../config/banner_rotator_config.yaml ${CONFIG_FILE}
+COPY ./config/banner_rotator_config.yaml ${CONFIG_FILE}
 
 CMD ${BIN_FILE} serve-http --config ${CONFIG_FILE}
