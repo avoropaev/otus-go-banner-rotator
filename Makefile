@@ -41,6 +41,7 @@ install-lint-deps:
 
 lint: install-lint-deps
 	pwd
+	ls -la
 	golangci-lint run --config .golangci.yml --color always ./...
 
 install-protoc:
