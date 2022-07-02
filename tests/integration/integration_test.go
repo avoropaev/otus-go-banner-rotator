@@ -21,7 +21,7 @@ func (s *IntegrationSuite) SetupSuite() {
 
 	apiURL := os.Getenv("BANNER_ROTATOR_GRPC_HOST") + ":" + os.Getenv("BANNER_ROTATOR_GRPC_PORT")
 
-	s.Init(apiURL)
+	s.Init(apiURL, os.Getenv("AMQP_URI_LOCAL"), os.Getenv("BANNER_ROTATOR_PRODUCER_QUEUE"))
 }
 
 func (s *IntegrationSuite) TearDownSuite() {

@@ -70,7 +70,14 @@ func serveHTTPCommandRunE(ctx context.Context) func(cmd *cobra.Command, args []s
 		store := psqlStorage.New(conn)
 
 		cfgP := cfg.Producer
-		producer := rmq.NewProducer(cfgP.URI, cfgP.Queue, cfgP.ExchangeName, cfgP.ExchangeType, cfgP.BindingKey)
+		producer := rmq.NewProducer(cfgP.URI, cfgP.Queue)
+
+		err = producer.Connect()
+		if err != nil {
+			log.Error().Err(err).Msg("unable to connect to amqp")
+
+			return err
+		}
 
 		application := app.New(store, producer)
 		grpcServer := internalGRPC.NewServer(cfg.GRPC.Host, cfg.GRPC.Port, application)

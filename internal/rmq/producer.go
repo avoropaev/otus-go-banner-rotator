@@ -8,22 +8,16 @@ import (
 )
 
 type Producer struct {
-	conn         *amqp.Connection
-	channel      *amqp.Channel
-	uri          string
-	queue        string
-	exchangeName string
-	exchangeType string
-	bindingKey   string
+	conn    *amqp.Connection
+	channel *amqp.Channel
+	uri     string
+	queue   string
 }
 
-func NewProducer(uri, queue, exchangeName, exchangeType, bindingKey string) *Producer {
+func NewProducer(uri, queue string) *Producer {
 	return &Producer{
-		uri:          uri,
-		queue:        queue,
-		exchangeName: exchangeName,
-		exchangeType: exchangeType,
-		bindingKey:   bindingKey,
+		uri:   uri,
+		queue: queue,
 	}
 }
 
@@ -59,7 +53,7 @@ func (c *Producer) Connect() error {
 		return fmt.Errorf("channel: %w", err)
 	}
 
-	err = c.declareExchangeAndQueue()
+	err = c.declareQueue()
 	if err != nil {
 		return err
 	}
@@ -75,19 +69,7 @@ func (c *Producer) Disconnect() error {
 	return c.conn.Close()
 }
 
-func (c *Producer) declareExchangeAndQueue() error {
-	// if err := c.channel.ExchangeDeclare(
-	// 	c.exchangeName,
-	// 	c.exchangeType,
-	// 	true,
-	// 	false,
-	// 	false,
-	// 	false,
-	// 	nil,
-	// ); err != nil {
-	// 	return fmt.Errorf("error while exchange declare: %w", err)
-	// }
-
+func (c *Producer) declareQueue() error {
 	_, err := c.channel.QueueDeclare(
 		c.queue,
 		true,
@@ -99,16 +81,6 @@ func (c *Producer) declareExchangeAndQueue() error {
 	if err != nil {
 		return fmt.Errorf("error while queue declare: %w", err)
 	}
-
-	// if err = c.channel.QueueBind(
-	// 	queue.Name,
-	// 	c.bindingKey,
-	// 	c.exchangeName,
-	// 	false,
-	// 	nil,
-	// ); err != nil {
-	// 	return fmt.Errorf("error while queue bind: %w", err)
-	// }
 
 	return nil
 }

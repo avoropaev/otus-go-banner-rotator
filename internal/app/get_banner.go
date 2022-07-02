@@ -7,6 +7,7 @@ import (
 
 	"github.com/google/uuid"
 
+	"github.com/avoropaev/otus-go-banner-rotator/internal/mab"
 	rmqModels "github.com/avoropaev/otus-go-banner-rotator/internal/rmq/models"
 	storageModels "github.com/avoropaev/otus-go-banner-rotator/internal/storage/models"
 )
@@ -45,7 +46,10 @@ func (a *app) GetBanner(ctx context.Context, slotGUID, socialGroupGUID *uuid.UUI
 		return nil, ErrNoOneBannerFoundForSlot
 	}
 
-	var statsWithLink []*storageModels.Stat
+	var (
+		statsWithLink []*storageModels.Stat
+		tries         int64
+	)
 
 	// учитываем статистику только для связанных баннеров и слотов
 nextBanner:
@@ -54,6 +58,7 @@ nextBanner:
 			if stat.BannerGUID == *bannerGUID {
 				// если статистика уже есть, то берём её
 				statsWithLink = append(statsWithLink, stat)
+				tries += int64(stat.Shows)
 
 				continue nextBanner
 			}
@@ -69,9 +74,9 @@ nextBanner:
 		})
 	}
 
-	resultBannerGUID := statsWithLink[0].BannerGUID
+	resultStat := mab.UCB1(statsWithLink, tries)
 
-	resultBanner, err = a.storage.FindBannerByGUID(ctx, &resultBannerGUID)
+	resultBanner, err = a.storage.FindBannerByGUID(ctx, &resultStat.BannerGUID)
 	if err != nil {
 		return nil, err
 	}
@@ -80,11 +85,11 @@ nextBanner:
 		return nil, ErrBannerNotFound
 	}
 
-	if statsWithLink[0].GUID == uuid.Nil {
-		statsWithLink[0].GUID = uuid.New()
-		statsWithLink[0].Shows = 1
+	if resultStat.GUID == uuid.Nil {
+		resultStat.GUID = uuid.New()
+		resultStat.Shows = 1
 
-		err = a.storage.CreateStat(ctx, statsWithLink[0])
+		err = a.storage.CreateStat(ctx, resultStat)
 		if err != nil {
 			return nil, err
 		}
@@ -92,7 +97,7 @@ nextBanner:
 		return resultBanner, nil
 	}
 
-	err = a.storage.AddShowToStat(ctx, &statsWithLink[0].GUID)
+	err = a.storage.AddShowToStat(ctx, &resultStat.GUID)
 	if err != nil {
 		return nil, err
 	}
