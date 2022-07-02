@@ -7,8 +7,8 @@ import (
 
 func (s *APISuite) TestGetBannerSuccess() {
 	banner, err := s.client.GetBanner(s.ctx, &pb.SlotAndSocialGroupRequest{
-		SlotGuid:        SlotGuid5,
-		SocialGroupGuid: SocialGroupGuid1,
+		SlotGuid:        SlotGUID5,
+		SocialGroupGuid: SocialGroupGUID1,
 	})
 	s.Require().NoError(err)
 	s.Require().NotNil(banner)
@@ -16,20 +16,20 @@ func (s *APISuite) TestGetBannerSuccess() {
 
 func (s *APISuite) TestGetBannerErrors() {
 	_, err := s.client.GetBanner(s.ctx, &pb.SlotAndSocialGroupRequest{
-		SlotGuid:        SlotGuidNotFound,
-		SocialGroupGuid: SocialGroupGuid1,
+		SlotGuid:        SlotGUIDNotFound,
+		SocialGroupGuid: SocialGroupGUID1,
 	})
 	s.Require().ErrorContains(err, app.ErrSlotNotFound.Error())
 
 	_, err = s.client.GetBanner(s.ctx, &pb.SlotAndSocialGroupRequest{
-		SlotGuid:        SlotGuid1,
-		SocialGroupGuid: SocialGroupGuidNotFound,
+		SlotGuid:        SlotGUID1,
+		SocialGroupGuid: SocialGroupGUIDNotFound,
 	})
 	s.Require().ErrorContains(err, app.ErrSocialGroupNotFound.Error())
 
 	_, err = s.client.GetBanner(s.ctx, &pb.SlotAndSocialGroupRequest{
 		SlotGuid:        SlotWithoutLinks,
-		SocialGroupGuid: SocialGroupGuid1,
+		SocialGroupGuid: SocialGroupGUID1,
 	})
 	s.Require().ErrorContains(err, app.ErrNoOneBannerFoundForSlot.Error())
 }

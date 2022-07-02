@@ -36,6 +36,7 @@ func (a *app) RemoveBannerFromSlot(ctx context.Context, bannerGUID, slotGUID *uu
 	return a.storage.RemoveBannerFromSlot(ctx, bannerGUID, slotGUID)
 }
 
+//nolint:dupl
 func (a *app) checkBannerAndSlotExists(ctx context.Context, bannerGUID, slotGUID *uuid.UUID) error {
 	wg := sync.WaitGroup{}
 	wg.Add(2)

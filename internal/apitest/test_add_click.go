@@ -7,39 +7,39 @@ import (
 
 func (s *APISuite) TestAddClickSuccess() {
 	_, err := s.client.AddClick(s.ctx, &pb.AddClickRequest{
-		BannerGuid:      BannerGuid1,
-		SlotGuid:        SlotGuid1,
-		SocialGroupGuid: SocialGroupGuid1,
+		BannerGuid:      BannerGUID1,
+		SlotGuid:        SlotGUID1,
+		SocialGroupGuid: SocialGroupGUID1,
 	})
 	s.Require().NoError(err)
 
 	_, err = s.client.AddClick(s.ctx, &pb.AddClickRequest{
-		BannerGuid:      BannerGuid1,
-		SlotGuid:        SlotGuid1,
-		SocialGroupGuid: SocialGroupGuid1,
+		BannerGuid:      BannerGUID1,
+		SlotGuid:        SlotGUID1,
+		SocialGroupGuid: SocialGroupGUID1,
 	})
 	s.Require().NoError(err)
 }
 
 func (s *APISuite) TestAddClickErrors() {
 	_, err := s.client.AddClick(s.ctx, &pb.AddClickRequest{
-		BannerGuid:      BannerGuidNotFound,
-		SlotGuid:        SlotGuid1,
-		SocialGroupGuid: SocialGroupGuid1,
+		BannerGuid:      BannerGUIDNotFound,
+		SlotGuid:        SlotGUID1,
+		SocialGroupGuid: SocialGroupGUID1,
 	})
 	s.Require().ErrorContains(err, app.ErrBannerNotFound.Error())
 
 	_, err = s.client.AddClick(s.ctx, &pb.AddClickRequest{
-		BannerGuid:      BannerGuid1,
-		SlotGuid:        SlotGuidNotFound,
-		SocialGroupGuid: SocialGroupGuid1,
+		BannerGuid:      BannerGUID1,
+		SlotGuid:        SlotGUIDNotFound,
+		SocialGroupGuid: SocialGroupGUID1,
 	})
 	s.Require().ErrorContains(err, app.ErrSlotNotFound.Error())
 
 	_, err = s.client.AddClick(s.ctx, &pb.AddClickRequest{
-		BannerGuid:      BannerGuid1,
-		SlotGuid:        SlotGuid1,
-		SocialGroupGuid: SlotGuidNotFound,
+		BannerGuid:      BannerGUID1,
+		SlotGuid:        SlotGUID1,
+		SocialGroupGuid: SlotGUIDNotFound,
 	})
 	s.Require().ErrorContains(err, app.ErrSocialGroupNotFound.Error())
 }

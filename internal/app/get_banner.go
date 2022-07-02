@@ -100,6 +100,7 @@ nextBanner:
 	return resultBanner, nil
 }
 
+//nolint:dupl
 func (a *app) checkSlotAndSocialGroupExists(ctx context.Context, slotGUID, socialGroupGUID *uuid.UUID) error {
 	wg := sync.WaitGroup{}
 	wg.Add(2)

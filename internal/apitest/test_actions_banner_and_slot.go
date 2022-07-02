@@ -21,14 +21,14 @@ func (s *APISuite) TestActionsBannerAndSlotSuccess() {
 
 func (s *APISuite) TestAddBannerToSlotErrors() {
 	_, err := s.client.AddBannerToSlot(s.ctx, &pb.BannerAndSlotRequest{
-		BannerGuid: BannerGuidNotFound,
-		SlotGuid:   SlotGuid1,
+		BannerGuid: BannerGUIDNotFound,
+		SlotGuid:   SlotGUID1,
 	})
 	s.Require().ErrorContains(err, app.ErrBannerNotFound.Error())
 
 	_, err = s.client.AddBannerToSlot(s.ctx, &pb.BannerAndSlotRequest{
-		BannerGuid: BannerGuid1,
-		SlotGuid:   SlotGuidNotFound,
+		BannerGuid: BannerGUID1,
+		SlotGuid:   SlotGUIDNotFound,
 	})
 	s.Require().ErrorContains(err, app.ErrSlotNotFound.Error())
 
@@ -41,14 +41,14 @@ func (s *APISuite) TestAddBannerToSlotErrors() {
 
 func (s *APISuite) TestRemoveBannerFromSlotErrors() {
 	_, err := s.client.RemoveBannerFromSlot(s.ctx, &pb.BannerAndSlotRequest{
-		BannerGuid: BannerGuidNotFound,
-		SlotGuid:   SlotGuid1,
+		BannerGuid: BannerGUIDNotFound,
+		SlotGuid:   SlotGUID1,
 	})
 	s.Require().ErrorContains(err, app.ErrBannerNotFound.Error())
 
 	_, err = s.client.RemoveBannerFromSlot(s.ctx, &pb.BannerAndSlotRequest{
-		BannerGuid: BannerGuid1,
-		SlotGuid:   SlotGuidNotFound,
+		BannerGuid: BannerGUID1,
+		SlotGuid:   SlotGUIDNotFound,
 	})
 	s.Require().ErrorContains(err, app.ErrSlotNotFound.Error())
 
