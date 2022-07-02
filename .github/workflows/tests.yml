@@ -1,4 +1,4 @@
-name: Otus homework banner rotator tests
+name: Otus homework banner rotator CI
 
 on:
   push:
