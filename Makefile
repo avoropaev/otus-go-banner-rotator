@@ -15,7 +15,7 @@ build:
 
 up:
 	docker-compose --env-file .env -p "$(BIN_FILENAME)_dev" -f $(DOCKER_COMPOSE_PATH) up -d
-	while ! docker-compose --env-file .env -p "$(BIN_FILENAME)_dev" -f $(DOCKER_COMPOSE_PATH) exec --user postgres db psql -c "select 'db ready!'" > /dev/null; do sleep 1; done;
+	while ! docker-compose --env-file .env -p "$(BIN_FILENAME)_dev" -f $(DOCKER_COMPOSE_PATH) exec -T --user postgres db psql -c "select 'db ready!'" > /dev/null; do sleep 1; done;
 	while ! curl -f -s http://localhost:15672 > /dev/null; do sleep 1; done;
 
 down:
@@ -61,7 +61,7 @@ generate: install-protoc
 
 integration-tests: install-migrator
 	docker-compose --env-file .env.test -p "$(BIN_FILENAME)_test" -f $(DOCKER_COMPOSE_PATH) -f $(DOCKER_COMPOSE_TEST_PATH) up -d
-	while ! docker-compose --env-file .env.test -p "$(BIN_FILENAME)_test" -f $(DOCKER_COMPOSE_PATH) -f $(DOCKER_COMPOSE_TEST_PATH) exec --user postgres db psql -c "select 'db ready!'" > /dev/null; do sleep 1; done;
+	while ! docker-compose --env-file .env.test -p "$(BIN_FILENAME)_test" -f $(DOCKER_COMPOSE_PATH) -f $(DOCKER_COMPOSE_TEST_PATH) exec -T --user postgres db psql -c "select 'db ready!'" > /dev/null; do sleep 1; done;
 	while ! curl -f -s http://localhost:15673 > /dev/null; do sleep 1; done;
 	goose --dir ./migrations postgres postgres://postgres:password@localhost:5436/postgres?sslmode=disable up
 	go test -v ./... --tags integration; \
