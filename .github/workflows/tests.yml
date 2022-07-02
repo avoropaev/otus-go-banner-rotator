@@ -10,9 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Extract branch name
-        run: echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
@@ -23,14 +20,10 @@ jobs:
 
       - name: make build-binary
         run: make build-binary
-        working-directory: ${{ env.BRANCH }}
 
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Extract branch name
-        run: echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
@@ -41,14 +34,10 @@ jobs:
 
       - name: make lint
         run: make lint
-        working-directory: ${{ env.BRANCH }}
 
   tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Extract branch name
-        run: echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
@@ -59,14 +48,10 @@ jobs:
 
       - name: make test
         run: make test
-        working-directory: ${{ env.BRANCH }}
 
   integration-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Extract branch name
-        run: echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
@@ -77,4 +62,3 @@ jobs:
 
       - name: make integration-tests
         run: make integration-tests
-        working-directory: ${{ env.BRANCH }}
