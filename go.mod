@@ -3,21 +3,18 @@ module github.com/avoropaev/otus-go-banner-rotator
 go 1.17
 
 require (
+	github.com/georgysavva/scany v1.0.0
+	github.com/google/uuid v1.3.0
+	github.com/grpc-ecosystem/go-grpc-middleware/providers/zerolog/v2 v2.0.0-rc.2
+	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.2
 	github.com/jackc/pgx/v4 v4.16.1
 	github.com/joho/godotenv v1.4.0
 	github.com/rs/zerolog v1.27.0
 	github.com/spf13/cobra v1.5.0
-)
-
-require (
-	github.com/georgysavva/scany v1.0.0
-	github.com/google/uuid v1.1.2
-	github.com/grpc-ecosystem/go-grpc-middleware/providers/zerolog/v2 v2.0.0-rc.2
-	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.2
 	github.com/spf13/viper v1.12.0
 	github.com/streadway/amqp v1.0.0
-	github.com/stretchr/testify v1.7.1
-	google.golang.org/grpc v1.46.2
+	github.com/stretchr/testify v1.8.0
+	google.golang.org/grpc v1.47.0
 	google.golang.org/protobuf v1.28.0
 )
 
