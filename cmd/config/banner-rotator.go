@@ -1,9 +1,8 @@
 package config
 
 import (
-	"github.com/spf13/viper"
-
 	"github.com/avoropaev/otus-go-banner-rotator/pkg/viperenvreplacer"
+	"github.com/spf13/viper"
 )
 
 type BannerRotatorConfig struct {

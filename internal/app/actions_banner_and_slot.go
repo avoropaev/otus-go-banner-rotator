@@ -4,9 +4,8 @@ import (
 	"context"
 	"sync"
 
-	"github.com/google/uuid"
-
 	storageModels "github.com/avoropaev/otus-go-banner-rotator/internal/storage/models"
+	"github.com/google/uuid"
 )
 
 func (a *app) AddBannerToSlot(ctx context.Context, bannerGUID, slotGUID *uuid.UUID) error {

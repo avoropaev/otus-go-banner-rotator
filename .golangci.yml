@@ -12,13 +12,6 @@ linters-settings:
       rules:
         json: snake
         yaml: snake
-  gci:
-    sections:
-      - standard
-      - default
-      - prefix(github.com/avoropaev/otus-go-banner-rotator)
-    section-separators:
-      - newLine
 
 linters:
   disable-all: true

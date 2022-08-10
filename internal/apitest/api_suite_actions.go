@@ -4,12 +4,11 @@ import (
 	"context"
 	"time"
 
+	"github.com/avoropaev/otus-go-banner-rotator/internal/server/pb"
 	"github.com/streadway/amqp"
 	"github.com/stretchr/testify/suite"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-
-	"github.com/avoropaev/otus-go-banner-rotator/internal/server/pb"
 )
 
 type APISuiteActions struct {

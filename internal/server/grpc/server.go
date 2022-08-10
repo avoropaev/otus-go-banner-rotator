@@ -5,16 +5,15 @@ import (
 	"net"
 	"strconv"
 
+	"github.com/avoropaev/otus-go-banner-rotator/internal/app"
+	"github.com/avoropaev/otus-go-banner-rotator/internal/server"
+	"github.com/avoropaev/otus-go-banner-rotator/internal/server/grpc/service"
+	"github.com/avoropaev/otus-go-banner-rotator/internal/server/pb"
 	grpcZerolog "github.com/grpc-ecosystem/go-grpc-middleware/providers/zerolog/v2"
 	middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/logging"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
-
-	"github.com/avoropaev/otus-go-banner-rotator/internal/app"
-	"github.com/avoropaev/otus-go-banner-rotator/internal/server"
-	"github.com/avoropaev/otus-go-banner-rotator/internal/server/grpc/service"
-	"github.com/avoropaev/otus-go-banner-rotator/internal/server/pb"
 )
 
 type serv struct {

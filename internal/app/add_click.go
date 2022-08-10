@@ -5,10 +5,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/google/uuid"
-
 	rmqModels "github.com/avoropaev/otus-go-banner-rotator/internal/rmq/models"
 	storageModels "github.com/avoropaev/otus-go-banner-rotator/internal/storage/models"
+	"github.com/google/uuid"
 )
 
 func (a *app) AddClick(ctx context.Context, bannerGUID, slotGUID, socialGroupGUID *uuid.UUID) (err error) {

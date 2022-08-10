@@ -3,11 +3,10 @@ package service
 import (
 	"context"
 
-	"github.com/google/uuid"
-	"google.golang.org/protobuf/types/known/emptypb"
-
 	internalApp "github.com/avoropaev/otus-go-banner-rotator/internal/app"
 	"github.com/avoropaev/otus-go-banner-rotator/internal/server/pb"
+	"github.com/google/uuid"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type bannerRotatorService struct {

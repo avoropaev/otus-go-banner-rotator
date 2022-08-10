@@ -5,11 +5,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/google/uuid"
-
 	"github.com/avoropaev/otus-go-banner-rotator/internal/mab"
 	rmqModels "github.com/avoropaev/otus-go-banner-rotator/internal/rmq/models"
 	storageModels "github.com/avoropaev/otus-go-banner-rotator/internal/storage/models"
+	"github.com/google/uuid"
 )
 
 func (a *app) GetBanner(ctx context.Context, slotGUID, socialGroupGUID *uuid.UUID) (resultBanner *storageModels.Banner, err error) {

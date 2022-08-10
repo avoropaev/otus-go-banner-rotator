@@ -5,12 +5,11 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/google/uuid"
-	"github.com/rs/zerolog/log"
-
 	"github.com/avoropaev/otus-go-banner-rotator/internal/rmq"
 	rmqModels "github.com/avoropaev/otus-go-banner-rotator/internal/rmq/models"
 	storageModels "github.com/avoropaev/otus-go-banner-rotator/internal/storage/models"
+	"github.com/google/uuid"
+	"github.com/rs/zerolog/log"
 )
 
 type Application interface {

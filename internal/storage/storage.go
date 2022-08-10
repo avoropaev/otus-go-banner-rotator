@@ -4,13 +4,12 @@ import (
 	"context"
 	"errors"
 
+	"github.com/avoropaev/otus-go-banner-rotator/internal/app"
+	"github.com/avoropaev/otus-go-banner-rotator/internal/storage/models"
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
 	pgx "github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
-
-	"github.com/avoropaev/otus-go-banner-rotator/internal/app"
-	"github.com/avoropaev/otus-go-banner-rotator/internal/storage/models"
 )
 
 type storage struct {

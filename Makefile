@@ -37,10 +37,12 @@ test:
 	go test -race -v -count 100 ./...
 
 install-lint-deps:
-	(which golangci-lint > /dev/null) || curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(shell go env GOPATH)/bin v1.41.1
+ifeq (,$(wildcard ./bin/golangci-lint))
+	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b ./bin v1.41.1
+endif
 
 lint: install-lint-deps
-	golangci-lint run --config .golangci.yml --color always ./...
+	./bin/golangci-lint run --config .golangci.yml --color always ./...
 
 install-protoc:
 ifeq (, $(shell which protoc))

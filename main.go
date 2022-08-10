@@ -3,9 +3,8 @@ package main
 import (
 	"context"
 
-	_ "github.com/joho/godotenv/autoload"
-
 	"github.com/avoropaev/otus-go-banner-rotator/cmd"
+	_ "github.com/joho/godotenv/autoload"
 )
 
 func main() {

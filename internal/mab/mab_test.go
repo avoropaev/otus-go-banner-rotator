@@ -3,11 +3,10 @@ package mab_test
 import (
 	"testing"
 
-	"github.com/google/uuid"
-	"github.com/stretchr/testify/require"
-
 	"github.com/avoropaev/otus-go-banner-rotator/internal/mab"
 	storageModels "github.com/avoropaev/otus-go-banner-rotator/internal/storage/models"
+	"github.com/google/uuid"
+	"github.com/stretchr/testify/require"
 )
 
 func TestUCB1(t *testing.T) {

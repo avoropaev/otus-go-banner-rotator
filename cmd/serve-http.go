@@ -8,16 +8,15 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/jackc/pgx/v4/pgxpool"
-	"github.com/rs/zerolog"
-	"github.com/rs/zerolog/log"
-	"github.com/spf13/cobra"
-
 	"github.com/avoropaev/otus-go-banner-rotator/cmd/config"
 	"github.com/avoropaev/otus-go-banner-rotator/internal/app"
 	"github.com/avoropaev/otus-go-banner-rotator/internal/rmq"
 	internalGRPC "github.com/avoropaev/otus-go-banner-rotator/internal/server/grpc"
 	psqlStorage "github.com/avoropaev/otus-go-banner-rotator/internal/storage"
+	"github.com/jackc/pgx/v4/pgxpool"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
+	"github.com/spf13/cobra"
 )
 
 func serveHTTPCommand(ctx context.Context) *cobra.Command {
