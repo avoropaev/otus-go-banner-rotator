@@ -1,0 +1,13 @@
+logger:
+  level: ${BANNER_ROTATOR_LOGGER_LEVEL} # trace|debug|info|warn|error|fatal|panic
+
+psql:
+  uri: ${POSTGRES_URI} # Example: postgres://{user}:{password}@{hostname}:{port}/{database-name}
+
+grpc:
+  host: ${BANNER_ROTATOR_GRPC_HOST}
+  port: ${BANNER_ROTATOR_GRPC_PORT}
+
+producer:
+  uri: ${AMQP_URI}
+  queue: ${BANNER_ROTATOR_PRODUCER_QUEUE}
